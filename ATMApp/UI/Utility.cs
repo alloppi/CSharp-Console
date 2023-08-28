@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +9,23 @@ namespace ATMApp.UI
 {
     public static class Utility
     {
+        private static long _transId;
+        private static CultureInfo _culture = new CultureInfo("en-US");
+
+        public static long GetTransactionId()
+        {
+            return ++_transId;
+        }
+
         public static string GetUserInput(string prompt)
         {
-            Console.WriteLine($"Enter {prompt}");
+            Console.Write($"Enter {prompt}: ");
             return Console.ReadLine();
         }
 
         public static void PressEnterToContinue()
         {
-            Console.WriteLine("\n\nPlease Enter to continue...\n");
+            Console.WriteLine("\n\nPress Enter to continue...\n");
             Console.ReadLine();
         }
 
@@ -46,7 +55,7 @@ namespace ATMApp.UI
             {
                 if (isPrompt)
                 {
-                    Console.WriteLine(prompt);
+                    Console.Write(prompt);
                 }
                 isPrompt = false;
 
@@ -61,8 +70,8 @@ namespace ATMApp.UI
                     else
                     {
                         PrintMessage("\nPlease enter 6 digits", false);
-                        isPrompt = true;
                         input.Clear();
+                        isPrompt = true;
                         continue;
                     }
                 }
@@ -84,9 +93,14 @@ namespace ATMApp.UI
             for (int i = 0; i < timer; i++)
             {
                 Console.Write(".");
-                Thread.Sleep(100);
+                Thread.Sleep(200);
             }
             Console.Clear();
+        }
+
+        public static string FormatAmount(decimal amt)
+        {
+            return String.Format(_culture, "{0:C2}", amt);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace ATMApp.UI
             while (!valid)
             {
                 userInput = Utility.GetUserInput(prompt);
+
                 try
                 {
                     var converter = TypeDescriptor.GetConverter(typeof(T));
@@ -31,7 +32,7 @@ namespace ATMApp.UI
                 }
                 catch
                 {
-                    Utility.PrintMessage("Invalid input. Enter again!", false);
+                    Utility.PrintMessage("Invalid input. Try again!", false);
                 }
             }
             return default;
